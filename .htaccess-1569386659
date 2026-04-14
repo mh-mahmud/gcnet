@@ -1,0 +1,14 @@
+Options +FollowSymLinks -Indexes
+RewriteEngine On
+
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]
+# Use PHP71 as default
+AddHandler application/x-httpd-php71 .php
+<IfModule mod_suphp.c>
+    suPHP_ConfigPath /opt/php71/lib
+</IfModule>
